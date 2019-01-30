@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>这是因子超市</h2>
+    <h2>这是超市</h2>
   </div>
 
 </template>

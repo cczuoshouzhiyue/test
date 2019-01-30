@@ -74,8 +74,7 @@
       <header>
         <div class="logo">
           <div class="logo-test">
-            <h2> 华泰证券</h2>
-            <span>HUATAI SECURITIES</span>
+            <span>12312312</span>
           </div>
 
         </div>
@@ -89,10 +88,10 @@
                    :router= isRouter
           >
             <el-menu-item  index="/">首页</el-menu-item>
-            <el-menu-item  index="/divisorStore">因子超市</el-menu-item>
-            <el-menu-item  index="/divisorAnalysis">因子分析</el-menu-item>
+            <el-menu-item  index="/divisorStore">超市</el-menu-item>
+            <el-menu-item  index="/divisorAnalysis">分析</el-menu-item>
             <el-submenu index="4">
-              <template slot="title">组合管理</template>
+              <template slot="title">管理</template>
               <el-menu-item  index="/groupManager">选项1</el-menu-item>
               <el-menu-item index="4-2">选项2</el-menu-item>
               <el-menu-item index="4-3">选项3</el-menu-item>

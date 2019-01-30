@@ -8,7 +8,7 @@ const UserRouters = {
       component: Index,
       name: 'divisorStore',
       meta: {
-        title: '因子超市'
+        title: '超市'
       }
     }
   ]

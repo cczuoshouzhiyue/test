@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>这是因子分析</h2>
+    <h2>这是分析</h2>
   </div>
 
 </template>
