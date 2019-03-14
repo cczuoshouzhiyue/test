@@ -8,6 +8,7 @@ import Routers from '@/router/index'
 import store from '@/store/index'
 import '@/directive/directive'
 import './util/http'
+import './api/index'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.config.productionTip = false
 /* eslint-disable no-new */

@@ -6,7 +6,7 @@
       <el-button type="success" @click="postData">发生post请求</el-button>
       <el-button type="info" @click="getTimeoutData">延时请求，会请求四次</el-button>
       <el-button type="warning" @click="setStore">设置store</el-button>
-      <el-button type="danger" @click="changeStore">更改store</el-button>
+      <el-button type="danger" @click="changeStoreForDispatch">更改store</el-button>
     </el-row>
     <p>{{message}}</p>
     <el-input v-model="input" placeholder="请输入内容"></el-input>
@@ -24,7 +24,8 @@
 
 <script>
 import Bar from '@/components/echarts/bar'
-import {mapState} from 'vuex'
+import {mapState, mapMutations} from 'vuex'
+import {product as axios} from '@/api/index'
 export default {
   components: {
     bar: Bar
@@ -53,14 +54,15 @@ export default {
   }),
   methods: {
     getData () {
-      let _this = this
+      console.log(axios)
       let param = {
-        a: 1,
-        b: 123
+        CurPage: 0,
+        PageSize: 1
       }
-      _this.$axios.get('/good', param).then(function (data) {
-        _this.message = data.data
-        console.log(data.data)
+      axios.getProductList(param).then((data) => {
+        console.log('success')
+      }, () => {
+        console.log('error')
       })
     },
     postData () {
@@ -69,12 +71,6 @@ export default {
         c: 123,
         d: 222
       }
-      _this.$axios.post('/seller', param).then(function (data) {
-        console.log(data.data)
-        _this.message = data.data
-      }, function (message) {
-        console.log('发生错误' + message)
-      })
     },
     getTimeoutData () {
       let _this = this
@@ -82,29 +78,19 @@ export default {
         a: 1,
         b: 123
       }
-      _this.$axios.get('/getTimeout', param).then(function (data) {
-        _this.message = data.data
-        console.log(data.data)
-      })
     },
     setStore () {
-      console.log(this.$store.getters.getType)
-      this.$store.commit('changeType', 'aaa')
+      this.changeStore('aaa')
     },
-    changeStore () {
+    changeStoreForDispatch () {
       // this.$store.commit('changeType', 'bbb')
       this.$store.dispatch('changeType', 'bbb').then(function () {
         console.log('改变完成')
       })
-    }
-  },
-  beforeRouteLeave (to, from, next) {
-    const answer = window.confirm('是否离开')
-    if (answer) {
-      next()
-    } else {
-      next(false)
-    }
+    },
+    ...mapMutations({
+      changeType: 'CHANGETYPE'
+    })
   }
 }
 </script>

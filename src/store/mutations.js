@@ -1,5 +1,6 @@
+import * as types from './mutations-types'
 const mutations = {
-  changeType: function (state, type) {
+  [types.CHANGETYPE]: function (state, type) {
     state.type = type
   }
 }

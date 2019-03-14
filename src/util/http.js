@@ -1,15 +1,14 @@
-import Vue from 'vue'
 import axios from 'axios'
 import qs from 'qs'
 import configParam from '@/config'
+import config from '../config'
 const axiosIns = axios.create()
 axiosIns.defaults.retry = configParam.retry
 axiosIns.defaults.retryDelay = configParam.retryDelay
 axiosIns.defaults.timeout = configParam.timeOut
 axiosIns.defaults.transformRequest = [function (data) {
   return qs.stringify(data)
-}
-]
+}]
 // 添加请求拦截器
 axiosIns.interceptors.request.use(function (config) {
   // const token = window.localStorage.getItem('token')
@@ -50,22 +49,20 @@ axiosIns.interceptors.response.use(function (response) {
     return Promise.reject(error)
   }
 })
-const ajaxMethod = ['get', 'post']
-const api = {}
-ajaxMethod.forEach((method) => {
-  api[method] = function (uri, data, config) {
-    return new Promise(function (resolve, reject) {
-      axiosIns[method](uri, data, config).then((response) => {
-        // if (response.data().code === 401) {
-        //   console.log('登录信息失效')
-        //   return
-        // }
-        resolve(response)
-      }).catch(function (error) {
-        console.log('网络故障' + error)
-      })
-    })
-  }
-})
 
-Vue.prototype.$axios = api
+const parseResponse = function (response) {
+  let promise = new Promise((resolve, reject) => {
+    resolve(response)
+  })
+  return promise
+}
+export default function createAxios () {
+  return {
+    get (url, query, config) {
+      return axios.get(url, query, config).then(parseResponse)
+    },
+    post (url, query, config) {
+      return axios.get(url, query, config).then(parseResponse)
+    }
+  }
+}
